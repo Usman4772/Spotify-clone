@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import {RegisterForm,GlobalContextWrappper,SideBar, LoginForm,AddSongsForm,ReduxProvider} from "@/components"
+import NextTopLoader from 'nextjs-toploader';
 const inter = Inter({ subsets: ["latin"] });
+import toast, { Toaster } from 'react-hot-toast';
+import Player from "@/components/Player/Player";
+import PlaylistForm from "@/components/PlaylistForm/PlaylistForm";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +20,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="bg-black w-screen flex justify-between p-2 ps-0 gap-[4px] overflow-x-hidden">
+<ReduxProvider>
+<GlobalContextWrappper>
+  <NextTopLoader showSpinner={false}/>
+  <Toaster/>
+          <RegisterForm/>
+          <LoginForm/>
+          <PlaylistForm/>
+          <AddSongsForm/>
+          
+        <SideBar>
+       {children}
+       </SideBar>
+       <Player/>
+       </GlobalContextWrappper>
+</ReduxProvider>
+  
+        </body>
     </html>
   );
 }
